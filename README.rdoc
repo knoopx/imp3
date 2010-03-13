@@ -1,6 +1,96 @@
-= imp3
+== DESCRIPTION
 
-Description goes here.
+iMp3 is an application for batch processing and fixing common issues when dealing with a large iTunes library
+
+== REQUIREMENTS
+
+Mac OS X 10.6
+iTunes 9
+
+== SYNOPSIS
+
+  Application for batch processing and fixing common issues when dealing with a large iTunes library
+
+  Commands:
+    fix genres           Tags all tracks genres using last.fm
+    fix misspelled-artists Fixes misspelled artist names
+    help                 Display global or [command] help documentation.
+    stats genres         Lists all genres tagged in iTunes
+
+  Global Options:
+    -h, --help           Display help documentation
+    -v, --version        Display version information
+    -t, --trace          Display backtrace when an error occurs
+
+== FEATURES
+
+$ imp3 fix misspelled-artists
+Misspelled artist name scan complete.
+
+What is the correct artist name for L'Antietam
+1. L'Antietam
+2. L'antietam
+3. (Skip)
+?  1
+Tagging track 851744AFF27C75D1 with artist name 'L'Antietam'
+
+177 artists.
+1479 tracks.
+1 tracks tagged.
+0 requests.
+0 errors.
+
+$ imp3 stats genres
+
++-------------------+--------+
+| Genre             | Tracks |
++-------------------+--------+
+| screamo           | 398    |
+| post-rock         | 252    |
+| hardcore          | 116    |
+| post-hardcore     | 81     |
+| sludge            | 72     |
+| indie             | 67     |
+| rock              | 58     |
+| math-rock         | 44     |
+| thrashcore        | 38     |
+| emo               | 36     |
+| electronic        | 33     |
+| crust             | 32     |
+| mathcore          | 29     |
+| post-metal        | 26     |
+| metalcore         | 23     |
+| singer-songwriter | 21     |
+| punk              | 21     |
+| grindcore         | 21     |
+| crustcore         | 15     |
+| ska               | 11     |
+| indie-rock        | 11     |
+| deathcore         | 10     |
+| black-metal       | 9      |
+| experimental      | 8      |
+| ambient           | 7      |
+| emo-violence      | 6      |
+| death-metal       | 5      |
+| pop-punk          | 5      |
+| swedish           | 3      |
+| psychedelic       | 3      |
+| pop               | 2      |
+| polish            | 2      |
+| punk-rock         | 1      |
+| acoustic          | 1      |
+| post-punk         | 1      |
++-------------------+--------+
+
+== TODO
+
+* Fix misspelled album names
+* Cache last.fm requests/already tagged/skipped tracks
+* Fix track names (lowercased)
+* Fetch album art
+* Cross-platform support
+* (your feature request here)
+* ...
 
 == Note on Patches/Pull Requests
  
@@ -12,6 +102,6 @@ Description goes here.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+== LICENSE
 
 Copyright (c) 2010 Víctor Martínez. See LICENSE for details.
