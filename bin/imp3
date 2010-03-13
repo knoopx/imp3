@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib')))
+
+require 'rubygems'
+require "lib/imp3"
+require 'commander/import'
+
+program :name, 'imp3'
+program :version, IMP3::VERSION
+program :description, 'Application for batch processing and fixing common issues when dealing with a large iTunes library'
+program :help_formatter, :compact
+
+default_command :help
+
+command "stats genres" do |c|
+  c.syntax = 'genres'
+  c.description = 'Lists all genres tagged in iTunes'
+  c.when_called do |args, options|
+    IMP3::CLI.new.list_genres
+  end
+end
+
+command "fix misspelled-artists" do |c|
+  c.syntax = 'fix misspelled-artists'
+  c.description = 'Fixes misspelled artist names'
+  c.when_called do |args, options|
+    IMP3::CLI.new.fix_misspelled_artist_names
+  end
+end
+
+command "fix genres" do |c|
+  c.syntax = 'fix genres'
+  c.description = 'Tags all tracks genres using last.fm'
+  c.when_called do |args, options|
+    IMP3::CLI.new.tag_genres
+  end
+end
+
