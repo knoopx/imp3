@@ -24,63 +24,62 @@ iTunes 9
 
 == FEATURES
 
-$ imp3 fix misspelled-artists
-Misspelled artist name scan complete.
+    $ imp3 fix misspelled-artists
+    Misspelled artist name scan complete.
 
-What is the correct artist name for L'Antietam
-1. L'Antietam
-2. L'antietam
-3. (Skip)
-?  1
-Tagging track 851744AFF27C75D1 with artist name 'L'Antietam'
+    What is the correct artist name for L'Antietam
+    1. L'Antietam
+    2. L'antietam
+    3. (Skip)
+    ?  1
+    Tagging track 851744AFF27C75D1 with artist name 'L'Antietam'
 
-177 artists.
-1479 tracks.
-1 tracks tagged.
-0 requests.
-0 errors.
+    177 artists.
+    1479 tracks.
+    1 tracks tagged.
+    0 requests.
+    0 errors.
 
-$ imp3 stats genres
-
-+-------------------+--------+
-| Genre             | Tracks |
-+-------------------+--------+
-| screamo           | 398    |
-| post-rock         | 252    |
-| hardcore          | 116    |
-| post-hardcore     | 81     |
-| sludge            | 72     |
-| indie             | 67     |
-| rock              | 58     |
-| math-rock         | 44     |
-| thrashcore        | 38     |
-| emo               | 36     |
-| electronic        | 33     |
-| crust             | 32     |
-| mathcore          | 29     |
-| post-metal        | 26     |
-| metalcore         | 23     |
-| singer-songwriter | 21     |
-| punk              | 21     |
-| grindcore         | 21     |
-| crustcore         | 15     |
-| ska               | 11     |
-| indie-rock        | 11     |
-| deathcore         | 10     |
-| black-metal       | 9      |
-| experimental      | 8      |
-| ambient           | 7      |
-| emo-violence      | 6      |
-| death-metal       | 5      |
-| pop-punk          | 5      |
-| swedish           | 3      |
-| psychedelic       | 3      |
-| pop               | 2      |
-| polish            | 2      |
-| punk-rock         | 1      |
-| acoustic          | 1      |
-| post-punk         | 1      |
-+-------------------+--------+
+    $ imp3 stats genres
+    +-------------------+--------+
+    | Genre             | Tracks |
+    +-------------------+--------+
+    | screamo           | 398    |
+    | post-rock         | 252    |
+    | hardcore          | 116    |
+    | post-hardcore     | 81     |
+    | sludge            | 72     |
+    | indie             | 67     |
+    | rock              | 58     |
+    | math-rock         | 44     |
+    | thrashcore        | 38     |
+    | emo               | 36     |
+    | electronic        | 33     |
+    | crust             | 32     |
+    | mathcore          | 29     |
+    | post-metal        | 26     |
+    | metalcore         | 23     |
+    | singer-songwriter | 21     |
+    | punk              | 21     |
+    | grindcore         | 21     |
+    | crustcore         | 15     |
+    | ska               | 11     |
+    | indie-rock        | 11     |
+    | deathcore         | 10     |
+    | black-metal       | 9      |
+    | experimental      | 8      |
+    | ambient           | 7      |
+    | emo-violence      | 6      |
+    | death-metal       | 5      |
+    | pop-punk          | 5      |
+    | swedish           | 3      |
+    | psychedelic       | 3      |
+    | pop               | 2      |
+    | polish            | 2      |
+    | punk-rock         | 1      |
+    | acoustic          | 1      |
+    | post-punk         | 1      |
+    +-------------------+--------+
 
 == TODO
 
