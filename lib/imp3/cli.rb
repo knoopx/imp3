@@ -66,7 +66,7 @@ end
 class String
   def strip_meaningless_words
     string = self
-    Config.instance.strip_words.each do |w|
+    IMP3::Config.instance.strip_words.each do |w|
       string = string.gsub(/\b#{w}\b/i, '')
     end
     string.strip
