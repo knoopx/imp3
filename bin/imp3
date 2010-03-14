@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib')))
+$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), "..", "lib")))
 
 require 'rubygems'
-require "lib/imp3"
+require "imp3"
 require 'commander/import'
 
 program :name, 'imp3'

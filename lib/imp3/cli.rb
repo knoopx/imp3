@@ -8,9 +8,9 @@ require 'rbosa'
 require 'pp'
 require 'commander/user_interaction'
 require 'singleton'
-require 'lib/imp3/config'
-require 'lib/imp3/cache'
-require 'lib/imp3/commands.rb'
+require 'imp3/config'
+require 'imp3/cache'
+require 'imp3/commands'
 
 OSA.utf8_strings = true
 
