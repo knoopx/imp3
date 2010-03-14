@@ -132,11 +132,11 @@ class IMP3::CLI
   protected
 
   def itunes
-    @itunes ||= OSA.app('iTunes')
+    @itunes ||= OSA.app('iTunes') rescue raise "Can't locate iTunes! It's installed?"
   end
 
   def library
-    @library ||= itunes.sources.find {|s| s.kind == OSA::ITunes::ESRC::LIBRARY }.playlists[0]
+    @library ||= itunes.sources.find {|s| s.kind == OSA::ITunes::ESRC::LIBRARY }.playlists[0] rescue raise "Unable to contact iTunes, please make sure it is open."
   end
 
   def tracks
