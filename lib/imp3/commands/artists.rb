@@ -26,7 +26,9 @@ module IMP3::Commands::Artists
         end
       end
 
-      unless artist_names[normalized_artist_name].eql?(:"(Skip)") or track.artist.eql?(artist_names[normalized_artist_name])
+      next if artist_names[normalized_artist_name].eql?(:"(Skip)")
+
+      unless track.artist.eql?(artist_names[normalized_artist_name])
         tagged += 1
         puts "Tagging track #{track.persistent_id} with artist name '#{artist_names[normalized_artist_name]}'"
         track.artist = ""
