@@ -131,9 +131,7 @@ iMp3 is an application for batch processing and fixing common issues when dealin
 * Issue solver: Fetch missing album art using images.google.com
 * Issue solver: Duplicate tracks
 * Issue solver: Remove sort artist (I personally hate this feature)
-* Switch to only process current iTunes selection
 * Switch to skip/force already processed tracks
-* Cache last.fm requests
 * Windows support through Win32OLE
 * (your feature request here)
 * ...
