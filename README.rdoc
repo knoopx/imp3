@@ -13,18 +13,42 @@ iMp3 is an application for batch processing and fixing common issues when dealin
 
 == SYNOPSIS
 
-  Application for batch processing and fixing common issues when dealing with a large iTunes library
+    NAME:
+    
+      imp3
 
-  Commands:
-    fix genres           Tags all tracks genres using last.fm
-    fix misspelled-artists Fixes misspelled artist names
-    help                 Display global or [command] help documentation.
-    stats genres         Lists all genres tagged in iTunes
+    DESCRIPTION:
 
-  Global Options:
-    -h, --help           Display help documentation
-    -v, --version        Display version information
-    -t, --trace          Display backtrace when an error occurs
+      Application for batch processing and fixing common issues when dealing with a large iTunes library
+
+    COMMANDS:
+
+      artists misspelled   Fix misspelled artist names
+      genres fetch         Fetch last.fm artist top tags and tag track genre
+      genres fetch-cache   Lists genres present on the cache and not in the ignore list
+      genres ignore-add    Add specified genre to ignore list so is no longer used for tagging tracks
+      genres ignore-del    Remove specified genre from ignore list
+      genres ignore-list   Lists all ignored genres
+      genres list          Lists all genres tagged in iTunes
+      help                 Display global or [command] help documentation.
+
+    GLOBAL OPTIONS:
+
+      -s, --selection
+          Apply only to current iTunes selection
+
+      -h, --help
+          Display help documentation
+
+      -v, --version
+          Display version information
+
+      -t, --trace
+          Display backtrace when an error occurs
+
+    AUTHORS:
+
+      Víctor Martínez
 
 == FEATURES
 

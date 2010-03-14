@@ -1,5 +1,6 @@
 module IMP3
-  VERSION = "0.1.1"
+  VERSION = "0.1.2".freeze
+  APP_DIR = File.expand_path(File.join("~", ".imp3"))
 end
 
 require 'lib/imp3/cli'

@@ -10,39 +10,52 @@ require 'commander/import'
 program :name, 'imp3'
 program :version, IMP3::VERSION
 program :description, 'Application for batch processing and fixing common issues when dealing with a large iTunes library'
-program :help_formatter, :compact
+program :help, 'Authors', 'Víctor Martínez'
 
 default_command :help
+
+global_option('-s', '--selection', "Apply only to current iTunes selection") { IMP3::CLI.instance.source_origin = :selection }
 
 command "genres list" do |c|
   c.syntax = 'genres list'
   c.description = 'Lists all genres tagged in iTunes'
   c.when_called do |args, options|
-    IMP3::CLI.new.genres_list
+    IMP3::CLI.instance.genres_list_command
   end
 end
 
 command "genres fetch" do |c|
-  c.syntax = 'genres fetch'
-  c.description = 'Fetch and tag track genres from last.fm top tag'
+  c.syntax = 'genres fetch [options]'
+  c.description = 'Fetch last.fm artist top tags and tag track genre'
+  c.option '--flush-cache', 'Re-create last.fm artist tags cache'
   c.when_called do |args, options|
-    IMP3::CLI.new.genres_tag
+    IMP3::CLI.instance.genres_fetch_command(options)
+  end
+end
+
+command "genres fetch-cache" do |c|
+  c.syntax = 'genres fetch-cache [options]'
+  c.description = 'Lists genres present on the cache and not in the ignore list'
+  c.option '--limit VALUE', Integer, 'Limit to [VALUE] results'
+  c.when_called do |args, options|
+    options.default :limit => 25
+    IMP3::CLI.instance.genres_fetch_cache_command(options)
   end
 end
 
 command "genres ignore-add" do |c|
   c.syntax = 'genres ignore-add GENRE'
-  c.description = 'Ignore specified genre so is no longer used and the next one is taken for tagging tracks'
+  c.description = 'Add specified genre to ignore list so is no longer used for tagging tracks'
   c.when_called do |args, options|
-    IMP3::CLI.new.genres_ignore_add(args.first)
+    IMP3::CLI.instance.genres_ignore_add_command(args.first)
   end
 end
 
 command "genres ignore-del" do |c|
   c.syntax = 'genres ignore-del GENRE'
-  c.description = 'Ignore specified genre so is no longer used and the next one is taken for tagging tracks'
+  c.description = 'Remove specified genre from ignore list'
   c.when_called do |args, options|
-    IMP3::CLI.new.genres_ignore_del(args.first)
+    IMP3::CLI.instance.genres_ignore_del_command(args.first)
   end
 end
 
@@ -50,7 +63,7 @@ command "genres ignore-list" do |c|
   c.syntax = 'genres ignore-list'
   c.description = 'Lists all ignored genres'
   c.when_called do |args, options|
-    IMP3::CLI.new.genres_ignore_list
+    IMP3::CLI.instance.genres_ignore_list_command
   end
 end
 
@@ -58,6 +71,6 @@ command "artists misspelled" do |c|
   c.syntax = 'artists misspelled'
   c.description = 'Fix misspelled artist names'
   c.when_called do |args, options|
-    IMP3::CLI.new.artists_misspelled
+    IMP3::CLI.instance.artists_misspelled_command
   end
 end
