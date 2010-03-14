@@ -14,27 +14,50 @@ program :help_formatter, :compact
 
 default_command :help
 
-command "stats genres" do |c|
-  c.syntax = 'genres'
+command "genres list" do |c|
+  c.syntax = 'genres list'
   c.description = 'Lists all genres tagged in iTunes'
   c.when_called do |args, options|
-    IMP3::CLI.new.list_genres
+    IMP3::CLI.new.genres_list
   end
 end
 
-command "fix misspelled-artists" do |c|
-  c.syntax = 'fix misspelled-artists'
-  c.description = 'Fixes misspelled artist names'
+command "genres fetch" do |c|
+  c.syntax = 'genres fetch'
+  c.description = 'Fetch and tag track genres from last.fm top tag'
   c.when_called do |args, options|
-    IMP3::CLI.new.fix_misspelled_artist_names
+    IMP3::CLI.new.genres_tag
   end
 end
 
-command "fix genres" do |c|
-  c.syntax = 'fix genres'
-  c.description = 'Tags all tracks genres using last.fm'
+command "genres ignore-add" do |c|
+  c.syntax = 'genres ignore-add GENRE'
+  c.description = 'Ignore specified genre so is no longer used and the next one is taken for tagging tracks'
   c.when_called do |args, options|
-    IMP3::CLI.new.tag_genres
+    IMP3::CLI.new.genres_ignore_add(args.first)
   end
 end
 
+command "genres ignore-del" do |c|
+  c.syntax = 'genres ignore-del GENRE'
+  c.description = 'Ignore specified genre so is no longer used and the next one is taken for tagging tracks'
+  c.when_called do |args, options|
+    IMP3::CLI.new.genres_ignore_del(args.first)
+  end
+end
+
+command "genres ignore-list" do |c|
+  c.syntax = 'genres ignore-list'
+  c.description = 'Lists all ignored genres'
+  c.when_called do |args, options|
+    IMP3::CLI.new.genres_ignore_list
+  end
+end
+
+command "artists misspelled" do |c|
+  c.syntax = 'artists misspelled'
+  c.description = 'Fix misspelled artist names'
+  c.when_called do |args, options|
+    IMP3::CLI.new.artists_misspelled
+  end
+end

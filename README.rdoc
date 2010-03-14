@@ -4,8 +4,12 @@ iMp3 is an application for batch processing and fixing common issues when dealin
 
 == REQUIREMENTS
 
-Mac OS X 10.6
-iTunes 9
+* Mac OS X 10.6
+* iTunes 9
+
+== INSTALL
+
+    sudo gem install imp3
 
 == SYNOPSIS
 
@@ -24,7 +28,10 @@ iTunes 9
 
 == FEATURES
 
-    $ imp3 fix misspelled-artists
+    $ imp3 genres fetch
+    53% |=============............| Tagging track 911DA9F96A9D7003 with genre 'sludge'
+
+    $ imp3 artists misspelled
     Misspelled artist name scan complete.
 
     What is the correct artist name for L'Antietam
@@ -40,7 +47,19 @@ iTunes 9
     0 requests.
     0 errors.
 
-    $ imp3 stats genres
+    $ imp3 genres ignore-add singer-songwriter
+    Genre 'singer-songwriter' added to ignore list
+
+    $ imp3 genres ignore-list
+    +-------------------+
+    | Genre             |
+    +-------------------+
+    | singer-songwriter |
+    | polish            |
+    | swedish           |
+    +-------------------+
+
+    $ imp3 genres list
     +-------------------+--------+
     | Genre             | Tracks |
     +-------------------+--------+
@@ -59,7 +78,6 @@ iTunes 9
     | mathcore          | 29     |
     | post-metal        | 26     |
     | metalcore         | 23     |
-    | singer-songwriter | 21     |
     | punk              | 21     |
     | grindcore         | 21     |
     | crustcore         | 15     |
@@ -83,11 +101,16 @@ iTunes 9
 
 == TODO
 
-* Fix misspelled album names
-* Cache last.fm requests/already tagged/skipped tracks
-* Fix track names (lowercased)
-* Fetch album art
-* Cross-platform support
+* Issue solver: Misspelled album names
+* Issue solver: Lower-cased track names
+* Issue solver: Same artist, different genre
+* Issue solver: Fetch missing album art using images.google.com
+* Issue solver: Duplicate tracks
+* Issue solver: Remove sort artist (I personally hate this feature)
+* Switch to only process current iTunes selection
+* Switch to skip/force already processed tracks
+* Cache last.fm requests
+* Windows support through Win32OLE
 * (your feature request here)
 * ...
 

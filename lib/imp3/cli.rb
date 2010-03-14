@@ -11,7 +11,9 @@ require 'commander/user_interaction'
 OSA.utf8_strings = true
 
 class IMP3::CLI
-  def tag_genres ()
+  CONFIG_FILE = File.expand_path(File.join("~", ".imp3"))
+
+  def genres_tag
     artist_genres = {}
     tagged, requests, errors = 0, 0, 0
 
@@ -21,8 +23,9 @@ class IMP3::CLI
       begin
         unless artist_genres.has_key?(normalized_artist_name)
           requests += 1
+          bar.refresh(:title => "Quering last.fm for '#{track.artist}'")
           tags = Nokogiri(open("http://ws.audioscrobbler.com/1.0/artist/#{URI.escape(CGI.escape(track.artist))}/toptags.xml")).search("//toptags/tag/name").map{|t| t.text.normalize }.uniq
-          bar.refresh(:title => "Quering last.fm for #{track.artist}")
+          tags = tags - config[:ignore_genres] if config[:ignore_genres]
           artist_genres[normalized_artist_name] = tags.first
         end
       rescue => e
@@ -35,14 +38,14 @@ class IMP3::CLI
         tagged += 1
         bar.increment(:title => "Tagging track #{track.persistent_id} with genre '#{artist_genres[normalized_artist_name]}'")
         track.genre = ""
-        track.genre = artist_genres[normalized_artist_name].normalize
+        track.genre = artist_genres[normalized_artist_name]
       end
 
     end
     summary(:tracks_tagged => tagged, :requests => requests, :errors => errors)
   end
 
-  def list_genres
+  def genres_list
     genres = {}
     tracks.each do |track|
       genres[track.genre] ||= 0
@@ -51,7 +54,7 @@ class IMP3::CLI
 
     genre_table = table do |t|
       t.headings = 'Genre', 'Tracks'
-      genres.sort{|a,b| b[1] <=> a[1]}.each do |g, c|
+      genres.sort{|a, b| b[1] <=> a[1]}.each do |g, c|
         t << [g, c]
       end
     end
@@ -60,10 +63,41 @@ class IMP3::CLI
     summary
   end
 
-  def fix_misspelled_artist_names
+  def genres_ignore_add(genre)
+    raise "Please specify a genre" unless genre
+    genre.strip!
+    config[:ignore_genres] ||= []
+    config[:ignore_genres] << genre unless config[:ignore_genres].include?(genre)
+    save_config
+    puts "Genre '#{genre}' added to ignore list"
+  end
+
+  def genres_ignore_del(genre)
+    raise "Please specify a genre" unless genre
+    genre.strip!
+    config[:ignore_genres].delete(genre) if config[:ignore_genres].include?(genre)
+    save_config
+    puts "Genre '#{genre}' deleted from ignore list"
+  end
+
+  def genres_ignore_list
+    if config[:ignore_genres].any?
+      genre_table = table do |t|
+        t.headings = 'Genre'
+        config[:ignore_genres].each do |g|
+          t << [g]
+        end
+      end
+      puts genre_table
+    else
+      puts "No ignored genres."
+    end
+  end
+
+  def artists_misspelled
     artist_choices = {}
     tagged = 0
-    
+
     progress_bar artists, :complete_message => "Misspelled artist name scan complete." do |artist, bar|
       bar.increment :title => "Scanning artist '#{artist}'"
       normalized_artist_name = artist.normalized_without_words
@@ -111,6 +145,23 @@ class IMP3::CLI
 
   def artists
     @artists ||= tracks.map{|t| t.artist}.uniq.sort
+  end
+
+  def config
+    return @config if @config
+    if File.exist?(CONFIG_FILE)
+      begin
+        @config = YAML.load_file(CONFIG_FILE)
+      rescue
+        raise "Unable to read config file #{CONFIG_FILE}"
+      end
+    else
+      @config = { :ignore_genres => [] }
+    end
+  end
+
+  def save_config
+    File.new(CONFIG_FILE, "w+").write(config.to_yaml)
   end
 
   def summary(opts = {})
