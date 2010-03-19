@@ -2,10 +2,15 @@
 
 iMp3 is an application for batch processing and fixing common issues when dealing with a large iTunes library
 
+== LIMITATIONS
+
+Due an Snow Leopard bug, this application will fail to process more than 65536 (2^16) song at once.
+In order to avoid this limitation, you can select the desired tracks to process in iTunes and then call iMp3 with _--selection_ switch 
+
 == REQUIREMENTS
 
-* Mac OS X 10.6
-* iTunes 9
+* Mac OS X
+* iTunes
 
 == INSTALL
 
