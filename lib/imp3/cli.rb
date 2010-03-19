@@ -34,15 +34,28 @@ class IMP3::CLI
   end
 
   def tracks
+    return @tracks if @tracks
+
     case source_origin
       when :library
-        @library ||= itunes.sources.find {|s| s.kind == OSA::ITunes::ESRC::LIBRARY }.playlists[0] rescue raise "Unable to contact iTunes, please make sure it is open."
-        @library.tracks 
+        @source = itunes.sources.find {|s| s.kind == OSA::ITunes::ESRC::LIBRARY }.playlists[0].tracks
       when :selection
-        itunes.selection
+        @source = itunes.selection
       else
         raise "Invalid source origin: #{source_origin}"
     end
+
+    @tracks = []
+    begin
+      progress_bar @source do |track, bar|
+        bar.refresh :title => "Scanning track #{track.object_id}"
+        @tracks << track
+        bar.increment
+      end
+    rescue
+      raise "Unable to retrieve tracks, please make sure iTunes is open."
+    end
+    @tracks
   end
 
   def artists
