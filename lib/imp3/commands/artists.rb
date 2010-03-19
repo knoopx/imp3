@@ -1,7 +1,4 @@
 module IMP3::Commands::Artists
-
-  #
-  # For every artist in iTunes, 
   def artists_misspelled_command
     artist_choices = {}
     tagged = 0
@@ -30,9 +27,14 @@ module IMP3::Commands::Artists
 
       unless track.artist.eql?(artist_names[normalized_artist_name])
         tagged += 1
-        puts "Tagging track #{track.persistent_id} with artist name '#{artist_names[normalized_artist_name]}'"
-        track.artist = ""
-        track.artist = artist_names[normalized_artist_name]
+        puts "Tagging track #{track.object_id} with artist name '#{artist_names[normalized_artist_name]}'"
+        begin
+          track.artist = artist_names[normalized_artist_name]
+        rescue => e
+          errors += 1
+          puts "Error: #{e}"
+        end
+
       end
     end
 

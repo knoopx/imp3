@@ -28,12 +28,16 @@ module IMP3::Commands::Genres
         genre = (cache.artist_genres[normalized_artist_name] - config.ignore_genres).first
 
         if track.genre.eql?(genre)
-          bar.refresh(:title => "Skipping track #{track.persistent_id}. Genre is already '#{genre}'")
+          bar.refresh(:title => "Skipping track #{track.object_id}. Genre is already '#{genre}'")
         else
-          bar.refresh(:title => "Tagging track #{track.persistent_id} with genre '#{genre}'")
+          bar.refresh(:title => "Tagging track #{track.object_id} with genre '#{genre}'")
           tagged += 1
-          track.genre = ""
-          track.genre = genre
+          begin
+            track.genre = genre
+          rescue => e
+            errors += 1
+            bar.refresh(:title => "Error: #{e}")
+          end
         end
       end
 
