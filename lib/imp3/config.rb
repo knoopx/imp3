@@ -18,7 +18,7 @@ class IMP3::Config
   end
 
   def ignore_genres
-    @data[:ignore_genres] ||= {}
+    @data[:ignore_genres] ||= []
     @data[:ignore_genres]
   end
 
